@@ -29,6 +29,7 @@
             ],
             "styles": [
               "src/reset.scss",
+              "src/colors.scss",
               "src/styles.scss"
             ],
             "scripts": []
