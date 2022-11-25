@@ -1,6 +1,12 @@
 .wrapper {
     position: relative;
     padding: 100px;
+    min-height: calc(100vh - 265px);
+
+    *{
+        transition-duration: 1s;
+        z-index: 3;
+    }
 
     .wrapper__img {
         background-color: var(--main);
@@ -11,7 +17,7 @@
         right: 0;
         width: 100%;
         height: 100%;
-        z-index: -2;
+        z-index: 1;
         object-fit: cover;
     }
 
@@ -25,15 +31,13 @@
         right: 0;
         width: 100%;
         height: 100%;
-        z-index: -1;
-    }
-
-    *{
-        transition-duration: 1s;
+        z-index: 2;
     }
 }
 
 .time {
+    position: relative;
+    // z-index: 3;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: 800;
     font-size: 96px;
