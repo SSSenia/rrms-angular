@@ -1,11 +1,14 @@
 .footer{
+    transition-duration: 1s;
+    background: var(--main);
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: column;
-    margin: 30px auto;
+    padding: 30px;
     font-size: 15px;
     .footer__text{
+        color: var(--contrast);
         margin: 15px auto;
     }
 }
