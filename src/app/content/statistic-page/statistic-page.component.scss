@@ -1,2 +1,41 @@
-.wrapper{
+.wrapper {
+  margin: 45px 10vw;
+  max-width: 1600px;
+
+}
+
+.select-values {
+
+  .select-values__text{
+    font-weight: 400;
+    font-size: 2vw;
+    color: var(--contrast);
+    padding-bottom: 30px;
+  }
+
+  .select-values__select {
+    display: flex;
+    justify-content: space-between;
+
+    .select-values__slider-wrapper {
+      width: 70%;
+      padding: 0 114px;
+      background: var(--neutral);
+
+      .select-values__slider {
+        width: 100%;
+        height: 45px;
+      }
+    }
+
+    .select-values__input{
+      height: 45px;
+      width: 15%;
+      background: var(--neutral);
+      border: none;
+      color: var(--light);
+      text-align: center;
+      font-size: 2vw;
+    }
+  }
 }
