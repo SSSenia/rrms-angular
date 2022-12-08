@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-current-page',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CurrentPageComponent implements OnInit {
 
+  public time$!: Observable<Date>;
+
   constructor() { }
-
+  
   ngOnInit(): void {
+    this.time$ = new Observable((subscriber)=>{
+      setInterval(()=>{
+        subscriber.next(new Date())
+      }, 500)
+    })
   }
-
 }
