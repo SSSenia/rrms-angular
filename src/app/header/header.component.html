@@ -1,16 +1,16 @@
 <div class="wrapper">
     <div class="navigation">
-        <div class="link link--active">
+        <div class="link" routerLinkActive="link--active" routerLink="/current">
             <div class="link__title">
                 Current
             </div>
         </div>
-        <div class="link">
+        <div class="link" routerLinkActive="link--active" routerLink="/statistic">
             <div class="link__title">
                 Statistic
             </div>
         </div>
-        <div class="link">
+        <div class="link" routerLinkActive="link--active" routerLink="/help">
             <div class="link__title">
                 Help
             </div>
@@ -22,7 +22,7 @@
             <option value="en">EN</option>
             <option value="ru">RU</option>
         </select>
-        <div class="theme">
+        <div class="theme" (click)="switchTheme()">
             <div class="theme__mod">
                 <span class="material-icons">
                     nightlight
@@ -33,7 +33,7 @@
                     light_mode
                 </span>
             </div>
-            <div class="theme__selector theme__selector--right"></div>
+            <div [ngClass]="['theme__selector', (theme$ | async) === 'light' ? 'theme__selector--right' : 'theme__selector--left']"></div>
         </div>
     </div>
 </div>

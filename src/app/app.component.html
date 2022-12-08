@@ -1,4 +1,4 @@
-<main class="light-theme">
+<main [class]="(theme$ | async) + '-theme'">
     <div class="background"></div>
     <app-header></app-header>
     <router-outlet></router-outlet>

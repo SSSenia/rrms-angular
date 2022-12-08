@@ -70,7 +70,7 @@
 }
 
 .theme {
-    transition-duration: 1s;
+    transition-duration: .5s;
     position: relative;
     border-radius: 20px;
     background: var(--contrast);
@@ -100,7 +100,7 @@
         width: 30px;
         border-radius: 50%;
         background: var(--accent);
-        transition-duration: 1s;
+        transition: all .5s ease-out;
 
         &--left {
             left: 5px;

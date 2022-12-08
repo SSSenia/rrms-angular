@@ -14,9 +14,10 @@ export class CurrentPageComponent implements OnInit {
   
   ngOnInit(): void {
     this.time$ = new Observable((subscriber)=>{
-      setInterval(()=>{
+      (function run() {
         subscriber.next(new Date())
-      }, 500)
+        setTimeout(run, 1000);
+      })();
     })
   }
 }
