@@ -43,7 +43,7 @@
     text-align: center;
     color: var(--contrast);
     background-color: var(--main);
-    height: 120px;
+    padding: 60px;
     width: 588px;
     margin: 0 auto;
 }
@@ -58,7 +58,7 @@
     flex-direction: column-reverse;
     margin-top: 100px;
 
-    &__value-box {
+    &__value {
         color: var(--contrast);
         background-color: var(--main);
         margin: 5vw;
