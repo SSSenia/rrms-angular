@@ -1,4 +1,4 @@
-.footer{
+.footer {
     transition-duration: 1s;
     background: var(--main);
     display: flex;
@@ -7,12 +7,12 @@
     flex-direction: column;
     padding: 30px;
     font-size: 15px;
-    .footer__text{
+
+    &__text {
         color: var(--contrast);
         margin: 15px auto;
     }
 }
-
 
 .line {
     background: var(--contrast);

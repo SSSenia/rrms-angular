@@ -3,7 +3,8 @@
     width: 1200px;
     min-height: calc(100vh - 265px);
     padding: 25px 0;
-    *{
+
+    * {
         transition-duration: 1s;
     }
 }
@@ -11,7 +12,7 @@
 .article {
     padding: 25px 0;
 
-    .article__header {
+    &__header {
         padding: 8px 30px;
         width: 300px;
         text-align: center;
@@ -21,7 +22,7 @@
         font-size: 20px;
     }
 
-    .article__content {
+    &__content {
         font-size: 20px;
         color: var(--contrast);
         padding: 50px 95px;
