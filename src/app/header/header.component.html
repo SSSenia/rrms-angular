@@ -2,23 +2,23 @@
     <div class="navigation">
         <div class="link" routerLinkActive="link--active" routerLink="/current">
             <div class="link__title">
-                Current
+                {{'HEADER.current' | translate}}
             </div>
         </div>
         <div class="link" routerLinkActive="link--active" routerLink="/statistic">
             <div class="link__title">
-                Statistic
+                {{'HEADER.statistic' | translate}}
             </div>
         </div>
         <div class="link" routerLinkActive="link--active" routerLink="/help">
             <div class="link__title">
-                Help
+                {{'HEADER.help' | translate}}
             </div>
         </div>
     </div>
 
     <div class="settings">
-        <select class="language">
+        <select class="language" [formControl]="langControl">
             <option value="en">EN</option>
             <option value="ru">RU</option>
         </select>

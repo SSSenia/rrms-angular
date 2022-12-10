@@ -1,5 +1,6 @@
-import { Component } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { BehaviorSubject, Subscription } from "rxjs";
 import { SettingsService } from "../shared/services/settings.service";
 
 @Component({
@@ -7,17 +8,27 @@ import { SettingsService } from "../shared/services/settings.service";
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
 
     public theme$: BehaviorSubject<string> = this.settingsService.getTheme();
+
+    public subToLangControl!: Subscription;
+    public langControl: FormControl = new FormControl('en');
 
     constructor(
         public settingsService: SettingsService
     ) { }
 
+    ngOnInit(): void {
+        this.subToLangControl = this.langControl.valueChanges
+            .subscribe((value) => this.settingsService.switchLang(value));
+    }
+
+    ngOnDestroy(): void {
+        this.subToLangControl.unsubscribe();
+    }
+
     switchTheme() {
         this.settingsService.switchTheme();
     }
-
-
 }

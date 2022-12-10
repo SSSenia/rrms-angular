@@ -1,0 +1,10 @@
+{
+    "HEADER":{
+        "current": "Current",
+        "statistic": "Statistic",
+        "help": "Help"
+    },
+    "FOOTER":{
+        
+    }
+}
