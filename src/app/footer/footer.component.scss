@@ -11,10 +11,12 @@
     &__text {
         color: var(--contrast);
         margin: 15px auto;
+        transition-duration: 1s; 
     }
 }
 
 .line {
     background: var(--contrast);
     height: 10px;
+    transition-duration: 1s;
 }

@@ -9,6 +9,7 @@
     font-size: 2vw;
     color: var(--contrast);
     padding-bottom: 30px;
+    transition-duration: 1s;
   }
 
   &__select {
@@ -38,36 +39,37 @@
   }
 }
 
-.data{
+.data {
   display: flex;
   justify-content: space-between;
   margin: 45px 0;
 
-  &__chart{
+  &__chart {
     background: var(--neutral);
     height: 300px;
     width: 70%;
   }
 
-  &__line{
+  &__line {
     background: var(--contrast);
     width: 10px;
     height: 200px;
     margin: auto 0;
+    transition-duration: 1s;
   }
-  
-  &__sensor{
+
+  &__sensor {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
   }
 
-  &__image{
+  &__image {
     height: 100px;
   }
 
-  &__type{
+  &__type {
     background: var(--neutral);
     color: var(--light);
     font-size: 2vw;

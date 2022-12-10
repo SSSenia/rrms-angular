@@ -1,11 +1,11 @@
-<div class="wrapper">
-    <div class="navigation">
+<header class="wrapper">
+    <nav class="navigation">
         <div class="link" routerLinkActive="link--active" *ngFor="let page of pages" [routerLink]="[page]">
             <div class="link__title">
                 {{'HEADER.' + page | translate}}
             </div>
         </div>
-    </div>
+    </nav>
     <div class="settings">
         <select class="language" [formControl]="langControl">
             <option value="en">EN</option>
@@ -27,5 +27,5 @@
             </div>
         </div>
     </div>
-</div>
+</header>
 <div class="line"></div>
