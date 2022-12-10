@@ -5,6 +5,7 @@ import { HelpPageComponent } from './help-page/help-page.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -19,6 +20,8 @@ import { TranslateModule } from "@ngx-translate/core";
   ],
   imports: [
     MatSliderModule,
+    FormsModule,
+    ReactiveFormsModule,
     CommonModule,
     TranslateModule
   ]
