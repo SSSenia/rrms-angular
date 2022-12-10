@@ -11,6 +11,11 @@ import { SettingsService } from "../shared/services/settings.service";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+    public pages: string[] = [
+        'current',
+        'statistic',
+        'help'
+    ]
     public theme$: BehaviorSubject<string> = this.settingsService.getTheme();
 
     public subToLangControl!: Subscription;

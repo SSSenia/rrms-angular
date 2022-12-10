@@ -1,22 +1,11 @@
 <div class="wrapper">
     <div class="navigation">
-        <div class="link" routerLinkActive="link--active" routerLink="/current">
+        <div class="link" routerLinkActive="link--active" *ngFor="let page of pages" [routerLink]="[page]">
             <div class="link__title">
-                {{'HEADER.current' | translate}}
-            </div>
-        </div>
-        <div class="link" routerLinkActive="link--active" routerLink="/statistic">
-            <div class="link__title">
-                {{'HEADER.statistic' | translate}}
-            </div>
-        </div>
-        <div class="link" routerLinkActive="link--active" routerLink="/help">
-            <div class="link__title">
-                {{'HEADER.help' | translate}}
+                {{'HEADER.' + page | translate}}
             </div>
         </div>
     </div>
-
     <div class="settings">
         <select class="language" [formControl]="langControl">
             <option value="en">EN</option>
@@ -33,7 +22,9 @@
                     light_mode
                 </span>
             </div>
-            <div [ngClass]="['theme__selector', (theme$ | async) === 'light' ? 'theme__selector--right' : 'theme__selector--left']"></div>
+            <div
+                [ngClass]="['theme__selector', (theme$ | async) === 'light' ? 'theme__selector--right' : 'theme__selector--left']">
+            </div>
         </div>
     </div>
 </div>
