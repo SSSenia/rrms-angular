@@ -4,6 +4,7 @@ import { StatisticPageComponent } from './statistic-page/statistic-page.componen
 import { HelpPageComponent } from './help-page/help-page.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CommonModule } from "@angular/common";
   ],
   imports: [
     MatSliderModule,
-    CommonModule
+    CommonModule,
+    TranslateModule
   ]
 })
 export class ContentModule { }
