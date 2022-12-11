@@ -1,6 +1,7 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 const MIN_VALUE: number = 5;
 const MAX_VALUE: number = 1000;
@@ -11,37 +12,28 @@ const MAX_VALUE: number = 1000;
   styleUrls: ['./statistic-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StatisticPageComponent implements OnInit, AfterViewInit {
+export class StatisticPageComponent implements OnInit, OnDestroy {
 
   public minValue: number = MIN_VALUE;
   public maxValue: number = MAX_VALUE;
 
   public valueControl: FormControl<number | null> = new FormControl<number>(MIN_VALUE);
+  public value$: BehaviorSubject<number> = new BehaviorSubject<number>(MIN_VALUE);
 
-  public value$!: Observable<number | null>;
+  public subToValue: Subscription = this.valueControl.valueChanges.subscribe(
+    (newValue: number | null) => {
+      if (!(newValue && +newValue && newValue >= MIN_VALUE)) this.valueControl.setValue(MIN_VALUE);
+      else if (newValue > MAX_VALUE) this.valueControl.setValue(MAX_VALUE);
+      else this.value$.next(newValue)
+    }
+  );
 
   constructor() { }
 
   ngOnInit(): void {
-    this.value$ = this.valueControl.valueChanges.pipe(
-      map((newValue: number | null)=> {
-        if(!(newValue && +newValue)){;
-          this.valueControl.setValue(MIN_VALUE);
-          return MIN_VALUE;
-        } else if(newValue < MIN_VALUE) {
-          this.valueControl.setValue(MIN_VALUE);
-          return MIN_VALUE;
-        } else if(newValue > MAX_VALUE){
-          this.valueControl.setValue(MAX_VALUE);
-          return MAX_VALUE;
-        } else {
-          return newValue;
-        }
-      })
-    );
   }
-  
-  ngAfterViewInit(): void {
-    this.valueControl.setValue(MIN_VALUE);
+
+  ngOnDestroy(): void {
+    this.subToValue.unsubscribe();
   }
 }
