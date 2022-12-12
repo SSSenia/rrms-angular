@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { interval, map, Observable, Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-
-const MIN_VALUE: number = 5;
-const MAX_VALUE: number = 1000;
+import { IChartValue, IPackageEChartOption } from 'src/app/shared/interfaces';
+import { CHART_SETUP, CHART_THEME, MAX_VALUE, MIN_VALUE } from 'src/app/shared/setup-chart';
 
 @Component({
   selector: 'app-statistic-page',
@@ -28,12 +27,32 @@ export class StatisticPageComponent implements OnInit, OnDestroy {
     }
   );
 
+  public chartTheme = CHART_THEME;
+  public options: any = undefined;
+  public updateOptions: Observable<IPackageEChartOption> | null = null;
+
   constructor() { }
 
-  ngOnInit(): void {
+  mockData: IChartValue[] = [];
+  getMockData = (): IPackageEChartOption => {
+    const value = 24 + (Math.random() - 0.5) * 5;
+    this.mockData.push({
+      value: [new Date, value]
+    })
+    const mockData = this.mockData.slice(-this.value$.getValue());
+    return {
+      temperature: { series: [{ data: mockData }] },
+      pressure: { series: [{ data: mockData }] },
+      humidity: { series: [{ data: mockData }] }
+    }
   }
 
-  ngOnDestroy(): void {
+  ngOnInit(): void {
+    this.updateOptions = interval(1000).pipe(map(this.getMockData));
+    this.options = CHART_SETUP;
+  }
+
+  ngOnDestroy() {
     this.subToValue.unsubscribe();
   }
 }

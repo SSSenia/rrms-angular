@@ -6,6 +6,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { CommonModule } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgxEchartsModule } from "ngx-echarts";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    NgxEchartsModule
   ]
 })
 export class ContentModule { }
