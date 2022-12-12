@@ -1,9 +1,14 @@
 <main class="wrapper">
     <img src="./assets/img/pipe.svg" alt="" class="wrapper__img">
     <div class="wrapper__blure"></div>
-    <section class="time">
-        {{time$ | async | date:'HH:mm:ss' }}
+    <section class="time" *ngIf="time$ | async as time; else loading">
+        {{time | date:'HH:mm:ss' }}
     </section>
+    <ng-template #loading>
+        <div class="loading">
+            loading...
+        </div>
+    </ng-template>
     <section class="sensors" *ngIf="currentValues$ | async as currentValues">
         <div class="sensor">
             <div class="sensor__value">{{currentValues.temperature}}°C</div>
