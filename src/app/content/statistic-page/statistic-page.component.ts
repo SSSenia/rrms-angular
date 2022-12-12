@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ThemeOption } from 'ngx-echarts';
 import { interval, map, Observable, Subscription, switchMap } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { ILastValues, IPackageEChartOption } from 'src/app/shared/interfaces';
@@ -20,16 +21,10 @@ export class StatisticPageComponent implements OnInit, OnDestroy {
   public valueControl: FormControl<number | null> = new FormControl<number>(MIN_VALUE);
   public value$: BehaviorSubject<number> = new BehaviorSubject<number>(MIN_VALUE);
 
-  public subToValue: Subscription = this.valueControl.valueChanges.subscribe(
-    (newValue: number | null) => {
-      if (!(newValue && +newValue && newValue >= MIN_VALUE)) this.valueControl.setValue(MIN_VALUE);
-      else if (newValue > MAX_VALUE) this.valueControl.setValue(MAX_VALUE);
-      else this.value$.next(newValue)
-    }
-  );
+  public subToValue!: Subscription;
 
-  public chartTheme = CHART_THEME;
-  public options: any = undefined;
+  public chartTheme: ThemeOption = CHART_THEME;
+  public options: any = CHART_SETUP;
   public updateOptions: Observable<IPackageEChartOption> | null = null;
 
   constructor(
@@ -37,6 +32,14 @@ export class StatisticPageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.subToValue = this.valueControl.valueChanges.subscribe(
+      (newValue: number | null) => {
+        if (!(newValue && +newValue && newValue >= MIN_VALUE)) this.valueControl.setValue(MIN_VALUE);
+        else if (newValue > MAX_VALUE) this.valueControl.setValue(MAX_VALUE);
+        else this.value$.next(newValue)
+      }
+    );
+
     this.updateOptions = interval(1000).pipe(
       switchMap((): Observable<ILastValues> => {
         return this.parseApiService.getLastValues(this.value$.getValue())
@@ -49,7 +52,6 @@ export class StatisticPageComponent implements OnInit, OnDestroy {
         }
       })
     );
-    this.options = CHART_SETUP;
   }
 
   ngOnDestroy() {
