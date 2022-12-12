@@ -15,6 +15,12 @@ export interface ILastValues {
   humidity: IChartValue[];
 }
 
+export interface ICurrentValues {
+  temperature: number;
+  pressure: number;
+  humidity: number;
+}
+
 export interface IPackageEChartOption {
   temperature: EChartsOption,
   pressure: EChartsOption,

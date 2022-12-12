@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { interval, map, Observable, Subscription } from 'rxjs';
+import { interval, map, Observable, Subscription, switchMap } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { IChartValue, IPackageEChartOption } from 'src/app/shared/interfaces';
+import { ILastValues, IPackageEChartOption } from 'src/app/shared/interfaces';
+import { ParseApiService } from 'src/app/shared/services/parse-api.service';
 import { CHART_SETUP, CHART_THEME, MAX_VALUE, MIN_VALUE } from 'src/app/shared/setup-chart';
 
 @Component({
@@ -31,24 +32,23 @@ export class StatisticPageComponent implements OnInit, OnDestroy {
   public options: any = undefined;
   public updateOptions: Observable<IPackageEChartOption> | null = null;
 
-  constructor() { }
-
-  mockData: IChartValue[] = [];
-  getMockData = (): IPackageEChartOption => {
-    const value = 24 + (Math.random() - 0.5) * 5;
-    this.mockData.push({
-      value: [new Date, value]
-    })
-    const mockData = this.mockData.slice(-this.value$.getValue());
-    return {
-      temperature: { series: [{ data: mockData }] },
-      pressure: { series: [{ data: mockData }] },
-      humidity: { series: [{ data: mockData }] }
-    }
-  }
+  constructor(
+    private parseApiService: ParseApiService
+  ) { }
 
   ngOnInit(): void {
-    this.updateOptions = interval(1000).pipe(map(this.getMockData));
+    this.updateOptions = interval(1000).pipe(
+      switchMap((): Observable<ILastValues> => {
+        return this.parseApiService.getLastValues(this.value$.getValue())
+      }),
+      map((lastValues: ILastValues): IPackageEChartOption => {
+        return {
+          temperature: { series: [{ data: lastValues.temperature }] },
+          pressure: { series: [{ data: lastValues.pressure }] },
+          humidity: { series: [{ data: lastValues.humidity }] }
+        }
+      })
+    );
     this.options = CHART_SETUP;
   }
 
