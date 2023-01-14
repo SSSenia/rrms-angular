@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { interval, map, Observable, switchMap } from 'rxjs';
+import { map, Observable, switchMap, timer } from 'rxjs';
 import { ICurrentValues } from 'src/app/shared/interfaces';
 import { ParseApiService } from 'src/app/shared/services/parse-api.service';
 
@@ -19,10 +19,10 @@ export class CurrentPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.time$ = interval(1000).pipe(
+    this.time$ = timer(0, 1000).pipe(
       map(() => new Date()));
 
-    this.currentValues$ = interval(1000).pipe(
+    this.currentValues$ = timer(0, 1000).pipe(
       switchMap(() => this.parseApiService.getCurrent()));
   }
 }

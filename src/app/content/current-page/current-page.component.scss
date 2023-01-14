@@ -1,7 +1,6 @@
 .wrapper {
     position: relative;
     padding: 100px;
-    min-height: calc(100vh - 265px);
 
     * {
         transition-duration: 1s;
@@ -43,8 +42,11 @@
     text-align: center;
     color: var(--contrast);
     background-color: var(--main);
-    padding: 60px;
-    width: 588px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 540px;
+    height: 130px;
     margin: 0 auto;
 }
 
@@ -63,10 +65,13 @@
         background-color: var(--main);
         margin: 5vw;
         margin-top: 60px;
-        padding: 35px;
         font-size: 48px;
         text-align: center;
-        width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 220px;
+        height: 65px;
     }
 
     &__image {

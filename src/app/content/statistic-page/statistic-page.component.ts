@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ThemeOption } from 'ngx-echarts';
-import { interval, map, Observable, Subscription, switchMap } from 'rxjs';
+import { map, Observable, Subscription, switchMap, timer } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { ILastValues, IPackageEChartOption } from 'src/app/shared/interfaces';
 import { ParseApiService } from 'src/app/shared/services/parse-api.service';
@@ -40,7 +40,7 @@ export class StatisticPageComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.updateOptions = interval(1000).pipe(
+    this.updateOptions = timer(0, 1000).pipe(
       switchMap((): Observable<ILastValues> => {
         return this.parseApiService.getLastValues(this.value$.getValue())
       }),
