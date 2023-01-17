@@ -9,10 +9,17 @@ export interface IChartValue {
   value: [Date, number]
 }
 
-export interface ILastValues {
-  temperature: IChartValue[];
-  pressure: IChartValue[];
-  humidity: IChartValue[];
+export interface IStatisticValues {
+  realData: {
+    temperature: IChartValue[];
+    pressure: IChartValue[];
+    humidity: IChartValue[];
+  },
+  prognosisData: {
+    temperature: IChartValue[];
+    pressure: IChartValue[];
+    humidity: IChartValue[];
+  }
 }
 
 export interface ICurrentValues {

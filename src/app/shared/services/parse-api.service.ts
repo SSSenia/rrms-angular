@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { IChartValue, ICurrentValues, ILastValues } from '../interfaces';
+import { IChartValue, ICurrentValues, IStatisticValues } from '../interfaces';
 
 const IS_MOCK: boolean = true;
 const API_PATH: string = '/api';
@@ -17,14 +17,21 @@ export class ParseApiService {
 
   mockLastValues: IChartValue[] = [];
 
-  getMockLastValues(amount: number): Observable<ILastValues> {
+  getMockLastValues(amount: number): Observable<IStatisticValues> {
     const value = 24 + (Math.random() - 0.5) * 5;
     this.mockLastValues.push({ value: [new Date, value] });
     const mockData = this.mockLastValues.slice(-amount);
     return of({
-      temperature: mockData,
-      pressure: mockData,
-      humidity: mockData
+      realData: {
+        temperature: mockData,
+        pressure: mockData,
+        humidity: mockData
+      },
+      prognosisData: {
+        temperature: [],
+        pressure: [],
+        humidity: []
+      }
     });
   }
 
@@ -42,9 +49,9 @@ export class ParseApiService {
     return this.http.get<ICurrentValues>(API_PATH + '/current');
   }
 
-  getLastValues(amount: number): Observable<ILastValues> {
+  getLastValues(amount: number): Observable<IStatisticValues> {
     if (IS_MOCK) return this.getMockLastValues(amount);
-    return this.http.get<ILastValues>(API_PATH + '/last-values', {
+    return this.http.get<IStatisticValues>(API_PATH + '/last-values', {
       headers: { amount: String(amount) }
     });
   }

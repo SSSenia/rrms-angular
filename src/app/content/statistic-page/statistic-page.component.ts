@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ThemeOption } from 'ngx-echarts';
 import { map, Observable, Subscription, switchMap, timer } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { ILastValues, IPackageEChartOption } from 'src/app/shared/interfaces';
+import { IStatisticValues, IPackageEChartOption } from 'src/app/shared/interfaces';
 import { ParseApiService } from 'src/app/shared/services/parse-api.service';
 import { CHART_SETUP, CHART_THEME, MAX_VALUE, MIN_VALUE } from 'src/app/shared/setup-chart';
 
@@ -41,14 +41,29 @@ export class StatisticPageComponent implements OnInit, OnDestroy {
     );
 
     this.updateOptions = timer(0, 1000).pipe(
-      switchMap((): Observable<ILastValues> => {
+      switchMap((): Observable<IStatisticValues> => {
         return this.parseApiService.getLastValues(this.value$.getValue())
       }),
-      map((lastValues: ILastValues): IPackageEChartOption => {
+      map((lastValues: IStatisticValues): IPackageEChartOption => {
         return {
-          temperature: { series: [{ data: lastValues.temperature }] },
-          pressure: { series: [{ data: lastValues.pressure }] },
-          humidity: { series: [{ data: lastValues.humidity }] }
+          temperature: {
+            series: [
+              { name: 'prognosis', type: 'line', data: lastValues.prognosisData.temperature },
+              { name: 'real data', type: 'line', data: lastValues.realData.temperature },
+            ]
+          },
+          pressure: {
+            series: [
+              { name: 'prognosis', type: 'line', data: lastValues.prognosisData.pressure },
+              { name: 'real data', type: 'line', data: lastValues.realData.pressure },
+            ]
+          },
+          humidity: {
+            series: [
+              { name: 'prognosis', type: 'line', data: lastValues.prognosisData.humidity },
+              { name: 'real data', type: 'line', data: lastValues.realData.humidity },
+            ]
+          }
         }
       })
     );
