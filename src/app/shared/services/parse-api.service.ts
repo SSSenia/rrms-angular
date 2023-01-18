@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { IChartValue, ICurrentValues, IStatisticValues } from '../interfaces';
+import { map, Observable, of } from 'rxjs';
+import { IArrayData, IChartValue, IChartValues, ICurrentValues, IApiValues, IApiValue } from '../interfaces';
 
 const IS_MOCK: boolean = true;
 const API_PATH: string = '/api';
@@ -17,7 +17,7 @@ export class ParseApiService {
 
   mockLastValues: IChartValue[] = [];
 
-  getMockLastValues(amount: number): Observable<IStatisticValues> {
+  getMockLastValues(amount: number): Observable<IChartValues> {
     const value = 24 + (Math.random() - 0.5) * 5;
     this.mockLastValues.push({ value: [new Date, value] });
     const mockData = this.mockLastValues.slice(-amount);
@@ -49,10 +49,33 @@ export class ParseApiService {
     return this.http.get<ICurrentValues>(API_PATH + '/current');
   }
 
-  getLastValues(amount: number): Observable<IStatisticValues> {
+  getLastValues(amount: number): Observable<IChartValues> {
     if (IS_MOCK) return this.getMockLastValues(amount);
-    return this.http.get<IStatisticValues>(API_PATH + '/last-values', {
+    const reduceFunc = (prev: IArrayData, current: IApiValue) => {
+      prev.temperature.push({ value: [current.date, current.temperature] });
+      prev.pressure.push({ value: [current.date, current.pressure] });
+      prev.humidity.push({ value: [current.date, current.humidity] });
+      return prev;
+    };
+    return this.http.get<IApiValues>(API_PATH + '/last-values', {
       headers: { amount: String(amount) }
-    });
+    }).pipe(
+      map((statisticValues: IApiValues) => ({
+        realData: {
+          ...statisticValues.realData.reduce(reduceFunc, {
+            temperature: [],
+            pressure: [],
+            humidity: []
+          })
+        },
+        prognosisData: {
+          ...statisticValues.prognosisData.reduce(reduceFunc, {
+            temperature: [],
+            pressure: [],
+            humidity: []
+          })
+        }
+      }))
+    );
   }
 }

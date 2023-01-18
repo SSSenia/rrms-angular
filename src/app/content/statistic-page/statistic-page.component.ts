@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { ThemeOption } from 'ngx-echarts';
 import { map, Observable, Subscription, switchMap, timer } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { IStatisticValues, IPackageEChartOption } from 'src/app/shared/interfaces';
+import { IApiValues, IPackageEChartOption, IChartValues } from 'src/app/shared/interfaces';
 import { ParseApiService } from 'src/app/shared/services/parse-api.service';
 import { CHART_SETUP, CHART_THEME, MAX_VALUE, MIN_VALUE } from 'src/app/shared/setup-chart';
 
@@ -41,10 +41,10 @@ export class StatisticPageComponent implements OnInit, OnDestroy {
     );
 
     this.updateOptions = timer(0, 1000).pipe(
-      switchMap((): Observable<IStatisticValues> => {
+      switchMap((): Observable<IChartValues> => {
         return this.parseApiService.getLastValues(this.value$.getValue())
       }),
-      map((lastValues: IStatisticValues): IPackageEChartOption => {
+      map((lastValues: IChartValues): IPackageEChartOption => {
         return {
           temperature: {
             series: [
