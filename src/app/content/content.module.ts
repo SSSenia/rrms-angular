@@ -7,16 +7,19 @@ import { CommonModule } from "@angular/common";
 import { TranslateModule } from "@ngx-translate/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxEchartsModule } from "ngx-echarts";
+import { AnalysisPageComponent } from './analysis-page/analysis-page.component';
 
 @NgModule({
   declarations: [
     CurrentPageComponent,
     StatisticPageComponent,
+    AnalysisPageComponent,
     HelpPageComponent
   ],
   exports: [
     CurrentPageComponent,
     StatisticPageComponent,
+    AnalysisPageComponent,
     HelpPageComponent
   ],
   imports: [

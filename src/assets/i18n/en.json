@@ -1,28 +1,43 @@
 {
-    "HEADER":{
+    "HEADER": {
         "current": "Current",
         "statistic": "Statistic",
+        "analysis": "Analysis",
         "help": "Help"
     },
-    "FOOTER":{
+    "FOOTER": {
         "developers": "Developed by: Ann Shutko | Pavel Ryndyn | Semen Synytsyn | Sergey Denisenko",
         "goal": "Designed for the subject: ПМтаЗЯПЗС"
     },
-    "STATISTIC":{
+    "STATISTIC": {
         "last": "Last",
         "values": "values",
         "temperature": "Temperature",
         "pressure": "Pressure",
         "humidity": "Humidity"
     },
-    "HELP":{
-        "current_page":{
+    "HELP": {
+        "current_page": {
             "header": "Current page",
             "content": "On this page we can observe the current state of the sensors. We get this data from the BMP280 sensor, which is attached to the Arduino Mega."
         },
-        "statistic_page":{
+        "statistic_page": {
             "header": "Statistic page",
             "content": "On this page we can observe graphs of changes of each sensor. You can select the time range for which the graph will be built."
+        },
+        "analysis_page": {
+            "header": "Analysis page",
+            "content": "On this page you can see the data analysis. You can select a range of values, and reload the data. The graphs display: probability histograms, correlation graphs, correlation coefficients."
         }
-    }
+    },
+    "ANALYSIS": {
+        "reload": "Reload",
+        "probability_diagrams": "Probability Diagrams",
+        "correlation": "Correlation",
+        "coef": "Coef",
+        "temperature": "Temperature",
+        "pressure": "Pressure",
+        "humidity": "Humidity"
+    },
+    "loading": "loading..."
 }
