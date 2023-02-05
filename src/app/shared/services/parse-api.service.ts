@@ -29,7 +29,7 @@ export class ParseApiService {
       value: [21, 28, 31, 29, 27],
       amount: [21, 28, 31, 29, 27]
     }
-  }
+  };
   private mockCorrelation: ICorrelationApi = {
     data: {
       temperature: [29, 41, 32, 33, 34, 31, 12, 21, 21],
@@ -37,11 +37,11 @@ export class ParseApiService {
       pressure: [1002, 1002, 1002, 1002, 1002, 1002, 1002, 1002, 1002],
     },
     coefCorrelation: {
-      temperaturePressure: 0.41,
-      temperatureHumidity: 0.32,
-      pressureHumidity: -0.52
+      temperaturePressure: 90.41544121,
+      temperatureHumidity: 0.32124235,
+      pressureHumidity: -0.52454121
     }
-  }
+  };
 
   private getMockLastValues(amount: number): Observable<IChartValues> {
     const value = 24 + (Math.random() - 0.5) * 5;

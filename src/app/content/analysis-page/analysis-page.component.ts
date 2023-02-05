@@ -22,6 +22,10 @@ export class AnalysisPageComponent implements OnInit {
   public minValue: number = MIN_VALUE;
   public maxValue: number = MAX_VALUE;
 
+  public cutting(value: number){
+    return Math.round(value * 10000)/10000;
+  }
+
   public reloadData() {
     this.probability$ = this.parseApiService.getProbability(this.valueControl.value!).pipe(
       map((value: IProbabilityApi) => ({
@@ -35,7 +39,9 @@ export class AnalysisPageComponent implements OnInit {
         temperaturePressureChart: this.setChart(value.data.temperature, value.data.pressure, 'scatter', 'Temperature', 'Pressure'),
         temperatureHumidityChart: this.setChart(value.data.temperature, value.data.humidity, 'scatter', 'Temperature', 'Humidity'),
         pressureHumidityChart: this.setChart(value.data.pressure, value.data.humidity, 'scatter', 'Pressure', 'Humidity'),
-        ...value.coefCorrelation
+        temperaturePressure: this.cutting(value.coefCorrelation.temperaturePressure),
+        temperatureHumidity: this.cutting(value.coefCorrelation.temperatureHumidity),
+        pressureHumidity: this.cutting(value.coefCorrelation.pressureHumidity)
       })));
   }
 
